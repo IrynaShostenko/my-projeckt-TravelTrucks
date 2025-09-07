@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import s from "./BookingForm.module.css";
+import { toast } from "react-toastify";
 
-export default function BookingForm({ camperName }) {
+function BookingForm({ camperName }) {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -32,19 +33,39 @@ export default function BookingForm({ camperName }) {
   }
 
   function onSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
+
+  // рахуємо "свіжі" помилки від поточних values
+  const nextErrors = validate(values, minDate);
+
+  if (Object.keys(nextErrors).length) {
     setTouched({ name: true, email: true, date: true });
-    if (Object.keys(errors).length) return;
-
-    // тут могла б бути відправка на бекенд
-    setSent(true);
-    // очистимо форму
-    setValues({ name: "", email: "", date: "", comment: "" });
-
-    // проста нотифікація
-    alert(`Booking request sent for "${camperName}" ✅`);
+    toast.error("Заповни обовʼязкові поля");
+    return;
   }
 
+  try {
+    setSent(true); // якщо блокуєш кнопку — хай залишається true під час "відправки"
+    // await api.post('/bookings', values); // якщо буде бекенд
+
+    // успіх
+    toast.success(`Booking request sent for "${camperName}" ✅`);
+
+    // ✨ головне: очистити і форму, і "touched"
+    setValues({ name: "", email: "", date: "", comment: "" });
+    setTouched({}); // ← прибирає червоні підсвітки після сабміту
+  } catch (error) {
+    console.error(error);
+    toast.error(
+      error?.response?.data?.message ||
+      error?.message ||
+      "Щось пішло не так. Спробуй ще раз."
+    );
+  } finally {
+    setSent(false);
+  }
+  }
+  
   return (
     <div className={s.box}>
       <h3 className={s.title}>Book your campervan now</h3>
@@ -102,7 +123,7 @@ export default function BookingForm({ camperName }) {
           />
         </div>
 
-        <button type="submit" className={s.primary}>Send</button>
+        <button type="submit" className={s.primary} disabled={sent}>{sent ? "Sending..." : "Send"}</button>
         {sent && <div className={s.success}>We received your request. We'll contact you soon.</div>}
       </form>
     </div>
@@ -121,3 +142,5 @@ function validate(v, minDate) {
 function cn(...list) {
   return list.filter(Boolean).join(" ");
 }
+
+export default BookingForm;
