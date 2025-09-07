@@ -1,0 +1,70 @@
+.box {
+    background: #fff;
+    border: 1px solid #E0E3E7;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.title {
+    margin: 0 0 6px;
+    font-weight: 700;
+    color: #101828;
+}
+
+.sub {
+    margin: 0 0 12px;
+    color: #667085;
+}
+
+.form {
+    display: grid;
+    gap: 10px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+.input {
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid #E0E3E7;
+    background: #F7F7F7;
+    padding: 0 12px;
+}
+
+.textarea {
+    min-height: 110px;
+    border-radius: 12px;
+    border: 1px solid #E0E3E7;
+    background: #F7F7F7;
+    padding: 10px 12px;
+    resize: vertical;
+}
+
+.invalid {
+    border-color: #E44848;
+    background: #FFF5F5;
+}
+
+.err {
+    font-size: 12px;
+    color: #D92D20;
+}
+
+.primary {
+    background: #E44848;
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.success {
+    margin-top: 8px;
+    color: #067647;
+    font-size: 14px;
+}

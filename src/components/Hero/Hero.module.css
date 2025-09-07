@@ -1,0 +1,62 @@
+.heroSection {
+    width: 1440px;
+    height: 696px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.heroSection::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.20) 0%,
+            rgba(0, 0, 0, 0.20) 100%),
+        url('../../assets/hero-image.jpg') lightgray 0px -192.086px / 100% 138.099% no-repeat;
+    background-size: cover;
+    transform: scaleX(-1);
+    z-index: 0;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    color: #fff;
+    padding: 20px;
+}
+
+.heroContent h1 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 24px;
+}
+
+.heroContent p {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 40px;
+}
+
+.viewNowButton {
+    display: inline-block;
+    padding: 16px 40px;
+    border-radius: 200px;
+    border: none;
+    background-color: #e44848;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.viewNowButton:hover {
+    background-color: #d84343;
+}

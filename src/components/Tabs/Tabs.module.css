@@ -1,0 +1,35 @@
+.bar {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid #E0E3E7;
+    margin: 16px 0;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    color: #667085;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tab:focus {
+    outline: none;
+}
+
+.active {
+    color: #E44848;
+    position: relative;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: #E44848;
+    border-radius: 2px;
+}

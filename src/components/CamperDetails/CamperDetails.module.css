@@ -1,0 +1,68 @@
+/* Контейнер розділу */
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Бейджі-«чіпси» */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 18px;
+    border-radius: 100px;
+    background: #F2F4F7;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+/* Карточка Vehicle details */
+.box {
+    border: 1px solid #EAECF0;
+    background: #F8F9FA;
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.boxTitle {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #101828;
+}
+
+/* Табличний список у дві колонки */
+.table {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.table li {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    column-gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid #E5E7EB;
+}
+
+.table li:first-child {
+    border-top: none;
+}
+
+.table li span:first-child {
+    color: #475467;
+}
+
+.table li span:last-child {
+    color: #101828;
+    font-weight: 500;
+}

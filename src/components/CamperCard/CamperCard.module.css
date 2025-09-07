@@ -1,0 +1,200 @@
+.card {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    border: 1px solid #dadde1;
+    border-radius: 20px;
+    background: #ffffff;
+}
+
+.photo {
+    width: 292px;
+    height: 310px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #101828;
+}
+
+.priceWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 20px;
+    color: #101828;
+}
+
+.favBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #e0e3e7;
+    background: #fff;
+    cursor: pointer;
+}
+
+.favBtn:hover {
+    background: #f7f7f7;
+}
+
+.meta {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: #475467;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dot {
+    opacity: 0.6;
+}
+
+.location {
+    white-space: nowrap;
+}
+
+.desc {
+    margin: 12px 0;
+    color: #475467;
+    font-size: 14px;
+    line-height: 1.45;
+
+    /* обрізання на 2 рядки */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    /* стандартна властивість */
+    overflow: hidden;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tag {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #f7f7f7;
+    border: 1px solid #e0e3e7;
+    font-size: 14px;
+    font-weight: 500;
+    color: #101828;
+}
+
+.actions {
+    margin-top: auto;
+}
+
+.more {
+    display: inline-block;
+    background: #e44848;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 28px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.more:hover {
+    background: #db3434;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.priceWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 20px;
+    color: #101828;
+}
+
+
+/* кнопка «в обране» — тільки іконка, без кружечка */
+.favBtn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.favBtn:focus {
+    outline: none;
+}
+
+.favBtn:focus-visible {
+    outline: 2px solid #e44848;
+    /* опц.: видимий фокус для a11y */
+    outline-offset: 2px;
+}
+
+.favBtn svg {
+    display: block;
+}
+
+/* блок для фото в картці каталогу */
+.thumb {
+    width: 292px;
+    height: 320px;
+    flex-shrink: 0;
+    /* не дає стискатися зображенню */
+    border-radius: 12px;
+    /* опц.: якщо в макеті є скруглення */
+    overflow: hidden;
+    /* щоб не вилазив контент за радіус */
+}

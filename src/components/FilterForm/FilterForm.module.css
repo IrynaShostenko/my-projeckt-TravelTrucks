@@ -1,0 +1,72 @@
+.form {
+    display: grid;
+    gap: 16px;
+}
+
+.group {
+    display: grid;
+    gap: 8px;
+}
+
+.label {
+    font-weight: 600;
+    color: #101828;
+}
+
+.input {
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1px solid #E0E3E7;
+    background: #F7F7F7;
+}
+
+.chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #E0E3E7;
+    background: #fff;
+    cursor: pointer;
+}
+
+.chipActive {
+    border: 2px solid #E44848;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #E0E3E7;
+    background: #fff;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.primary {
+    background: #E44848;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 28px;
+    font-weight: 600;
+    cursor: pointer;
+}
