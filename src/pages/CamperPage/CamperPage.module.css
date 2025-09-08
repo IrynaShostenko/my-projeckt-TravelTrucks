@@ -130,3 +130,52 @@
     border-radius: 12px;
     padding: 24px;
 }
+
+:root {
+    --slot-w: 292px;
+    --slot-h: 312px;
+    --slot-gap: 24px;
+}
+
+/* 4 слоти фіксованої ширини */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, var(--slot-w));
+    gap: var(--slot-gap);
+    justify-content: space-between;
+}
+
+/* контейнер слота */
+.gItem {
+    position: relative;
+    width: var(--slot-w);
+    height: var(--slot-h);
+    border-radius: 12px;
+    /* заокруглення як у макеті */
+    overflow: hidden;
+    /* обрізання по радіусу */
+    background: #fff;
+    /* біла заливка для порожнього слота */
+    isolation: isolate;
+    /* дрібний фикс, щоб overflow працював стабільно */
+}
+
+/* сама картинка теж наслідує радіус */
+.gItem>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* заповнює слот без спотворень */
+    object-position: center;
+    /* можна center top за бажанням */
+    border-radius: inherit;
+    /* дублюємо радіус на зображенні */
+    backface-visibility: hidden;
+    /* підчищає артефакти на краях */
+}
+
+/* якщо десь лишився глобальний стиль, що скидає радіус — нейтралізуємо */
+.gallery img {
+    border-radius: inherit;
+}

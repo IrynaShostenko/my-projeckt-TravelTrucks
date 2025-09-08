@@ -1,5 +1,8 @@
-import { useEffect } from "react";
+// src/pages/CamperPage/CamperPage.jsx
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
 import Header from "../../components/Header/Header.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import Tabs from "../../components/Tabs/Tabs.jsx";
@@ -7,6 +10,7 @@ import CamperDetails from "../../components/CamperDetails/CamperDetails.jsx";
 import Reviews from "../../components/Reviews/Reviews.jsx";
 import BookingForm from "../../components/BookingForm/BookingForm.jsx";
 import StarIcon from "../../components/icons/StarIcon.jsx";
+import PinIcon from "../../components/icons/PinIcon.jsx";
 
 import { loadCamperById, clearCurrent } from "../../redux/campersSlice.js";
 import {
@@ -16,35 +20,42 @@ import {
 } from "../../redux/selectors.js";
 
 import formatPrice from "../../utils/formatPrice.js";
-import { FALLBACK_IMG } from "../../utils/image.js";
-
 import s from "./CamperPage.module.css";
 
-function getGallery(camper) {
+// Приводимо дані галереї до масиву URL рядків
+function normalizeGallery(camper) {
   if (!camper) return [];
   if (Array.isArray(camper.gallery)) {
     return camper.gallery
-      .map((g) => g?.thumb || g?.original || g)
+      .map((g) => (typeof g === "string" ? g : g?.thumb || g?.original))
       .filter(Boolean);
   }
   return camper.image ? [camper.image] : [];
 }
 
 export default function CamperPage() {
+  const { id } = useParams();
   const dispatch = useDispatch();
+
   const camper = useSelector(selectCurrentCamper);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
-useEffect(() => {
-  const id = location.pathname.split("/").pop();
-  dispatch(loadCamperById(id));
-  return () => dispatch(clearCurrent()); // cleanup
-}, [dispatch]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (id) dispatch(loadCamperById(id));
+    return () => dispatch(clearCurrent());
+  }, [dispatch, id]);
 
+  // Рівно 4 слоти у галереї; якщо фото немає — null (біла картка)
+  const gallerySlots = useMemo(() => {
+    const imgs = normalizeGallery(camper);
+    return Array.from({ length: 4 }, (_, i) => imgs[i] || null);
+  }, [camper]);
+
+  // Якщо конкретне фото зламалось — ховаємо <img>, залишається біла плашка
   const onImgError = (e) => {
-    e.currentTarget.src = FALLBACK_IMG;
-    e.currentTarget.onerror = null;
+    e.currentTarget.style.display = "none";
   };
 
   return (
@@ -56,50 +67,52 @@ useEffect(() => {
 
         {!loading && !error && camper && (
           <>
-            {/* title + price */}
+            {/* Заголовок + ціна */}
             <div className={s.head}>
               <h1 className={s.title}>{camper.name}</h1>
               <div className={s.price}>€{formatPrice(camper.price)}</div>
             </div>
 
-            {/* meta row: rating + reviews link + location */}
+            {/* Рейтинг, відгуки та локація (без крапки) */}
             <div className={s.meta}>
               <a className={s.reviewsLink} href="#reviews">
-                <StarIcon pressed size={16} />
+                <StarIcon filled size={16} />
                 <span className={s.rateText}>
                   {Number(camper.rating ?? 0).toFixed(1)}
                 </span>
                 <span className={s.muted}>
-                  ({(camper.reviews?.length || 0)} Reviews)
+                  ({camper.reviews?.length || 0} Reviews)
                 </span>
               </a>
-              <span className={s.dot}>•</span>
+
               <span className={s.location}>
-                <span className={s.pin} aria-hidden>📍</span>
+                <PinIcon className={s.pin} size={16} />
                 {camper.location}
               </span>
             </div>
 
-            {/* gallery: 4 зображення */}
-            {getGallery(camper).length > 0 && (
-              <div className={s.gallery}>
-                {getGallery(camper).slice(0, 4).map((src, i) => (
-                  <div className={s.gItem} key={i}>
+            {/* Галерея з 4 однаковими слотами; порожні — просто білі */}
+            <div className={s.gallery}>
+              {gallerySlots.map((src, i) => (
+                <div className={`${s.gItem} ${!src ? s.gEmpty : ""}`} key={i}>
+                  {src && (
                     <img
-                      src={src || FALLBACK_IMG}
-                      onError={onImgError}
+                      src={src}
                       alt={`${camper.name} ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      onError={onImgError}
                     />
-                  </div>
-                ))}
-              </div>
-            )}
+                  )}
+                </div>
+              ))}
+            </div>
 
             {camper.description && (
               <p className={s.desc}>{camper.description}</p>
             )}
 
-            {/* Tabs */}
+            {/* Таби: Features / Reviews */}
             <Tabs
               defaultKey="Features"
               tabs={{

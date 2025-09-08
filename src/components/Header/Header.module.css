@@ -1,13 +1,14 @@
 .header {
     padding: 24px 64px;
-    max-width: 1440px;
-    margin: 0 auto;
+    /* min-width: 1440px; */
+    margin: 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 450px;
     border-bottom: 1px solid #F2F4F7;
     background: #F7F7F7;
+
 }
 
 .logo a {
@@ -20,7 +21,7 @@
 
 .nav {
     display: flex;
-    gap: 40px;
+    gap: 32px;
 }
 
 .nav a {

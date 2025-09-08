@@ -12,24 +12,21 @@ function CamperCard({ camper }) {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites) || [];
 
-  // ✅ нормалізуємо id на випадок різних типів (число/рядок)
   const idStr = String(camper.id);
   const isFav = favorites.includes(idStr);
 
-  // ✅ коректно дістаємо перше фото (thumb/original/інші поля)
   const cover = getCoverImage(camper);
   const onImgError = (e) => {
-    e.currentTarget.src = FALLBACK_IMG;  // підміняємо на плейсхолдер
-    e.currentTarget.onerror = null;      // щоб не зациклитись
+    e.currentTarget.src = FALLBACK_IMG;
+    e.currentTarget.onerror = null;      
   };
 
   function onFavClick(e) {
-    e.preventDefault();         // щоб клік по сердечку не відкривав лінк
+    e.preventDefault();     
     e.stopPropagation();
     dispatch(toggleFavorite(idStr));
   }
 
-  // бейджі з наявних характеристик
   const badges = [];
   if (camper.transmission === "automatic") badges.push("Automatic");
   if (camper.AC) badges.push("AC");
@@ -40,11 +37,10 @@ function CamperCard({ camper }) {
   if (camper.microwave) badges.push("Microwave");
   if (camper.gas) badges.push("Gas");
   if (camper.water) badges.push("Water");
-  if (camper.engine) badges.push(cap(camper.engine)); // покаже Diesel/Petrol
+  if (camper.engine) badges.push(cap(camper.engine));
 
   return (
     <article className={s.card}>
-      {/* ✅ використовуємо cover + onError + фолбек */}
       <img
         className={s.photo}
         src={cover || FALLBACK_IMG}
@@ -74,7 +70,6 @@ function CamperCard({ camper }) {
 
         <p className={s.meta}>
           <span className={s.rating}>
-            {/* Увага: наш StarIcon очікує prop 'filled', не 'pressed' */}
             <StarIcon filled size={16} />
             {camper.rating} ({camper.reviews?.length || 0} Reviews)
           </span>

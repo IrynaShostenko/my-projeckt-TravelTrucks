@@ -1,11 +1,8 @@
 .heroSection {
-    width: 1440px;
+    min-width: 1440px;
     height: 696px;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
 }
 
 .heroSection::before {
@@ -26,21 +23,27 @@
     z-index: 1;
     text-align: left;
     color: #fff;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: auto 0 auto 64px;
+
 }
 
 .heroContent h1 {
     font-size: 48px;
     font-weight: 600;
     line-height: 1.25;
-    margin-bottom: 24px;
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 
 .heroContent p {
     font-size: 24px;
     font-weight: 400;
     line-height: 1.25;
+    margin-top: 0;
     margin-bottom: 40px;
+
 }
 
 .viewNowButton {

@@ -35,7 +35,6 @@ function BookingForm({ camperName }) {
   function onSubmit(e) {
   e.preventDefault();
 
-  // рахуємо "свіжі" помилки від поточних values
   const nextErrors = validate(values, minDate);
 
   if (Object.keys(nextErrors).length) {
@@ -45,15 +44,12 @@ function BookingForm({ camperName }) {
   }
 
   try {
-    setSent(true); // якщо блокуєш кнопку — хай залишається true під час "відправки"
-    // await api.post('/bookings', values); // якщо буде бекенд
+    setSent(true);
 
-    // успіх
     toast.success(`Booking request sent for "${camperName}" ✅`);
 
-    // ✨ головне: очистити і форму, і "touched"
     setValues({ name: "", email: "", date: "", comment: "" });
-    setTouched({}); // ← прибирає червоні підсвітки після сабміту
+    setTouched({});
   } catch (error) {
     console.error(error);
     toast.error(
