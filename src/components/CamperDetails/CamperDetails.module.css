@@ -24,7 +24,6 @@
     line-height: 1;
 }
 
-/* Карточка Vehicle details */
 .box {
     border: 1px solid #EAECF0;
     background: #F8F9FA;
@@ -41,6 +40,7 @@
 
 /* Табличний список у дві колонки */
 .table {
+    font-weight: 500;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -59,6 +59,7 @@
 }
 
 .table li span:first-child {
+
     color: #475467;
 }
 

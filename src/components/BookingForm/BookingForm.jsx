@@ -10,7 +10,8 @@ function BookingForm({ camperName }) {
     comment: "",
   });
   const [touched, setTouched] = useState({});
-  const [sent, setSent] = useState(false);
+  const [isSending, setIsSending] = useState(false); // йде відправка
+  const [wasSent, setWasSent] = useState(false);     // успішно відправлено
 
   const minDate = useMemo(() => {
     const d = new Date();
@@ -24,44 +25,49 @@ function BookingForm({ camperName }) {
 
   function onChange(e) {
     const { name, value } = e.target;
-    setValues((p) => ({ ...p, [name]: value }));
+    setValues(p => ({ ...p, [name]: value }));
+    setWasSent(false); // ховаємо повідомлення після будь-якої правки
   }
 
   function onBlur(e) {
     const { name } = e.target;
-    setTouched((p) => ({ ...p, [name]: true }));
+    setTouched(p => ({ ...p, [name]: true }));
   }
 
-  function onSubmit(e) {
-  e.preventDefault();
+  async function onSubmit(e) {
+    e.preventDefault();
 
-  const nextErrors = validate(values, minDate);
+    const nextErrors = validate(values, minDate);
+    if (Object.keys(nextErrors).length) {
+      setTouched({ name: true, email: true, date: true });
+      toast.error("Заповни обовʼязкові поля");
+      return;
+    }
 
-  if (Object.keys(nextErrors).length) {
-    setTouched({ name: true, email: true, date: true });
-    toast.error("Заповни обовʼязкові поля");
-    return;
+    try {
+      setIsSending(true);
+      setWasSent(false);
+
+      // імітація запиту, щоб показати "Sending..."
+      await new Promise(r => setTimeout(r, 700));
+
+      toast.success(`Booking request sent for "${camperName}" ✅`);
+
+      setValues({ name: "", email: "", date: "", comment: "" });
+      setTouched({});
+      setWasSent(true);
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Щось пішло не так. Спробуй ще раз."
+      );
+    } finally {
+      setIsSending(false);
+    }
   }
 
-  try {
-    setSent(true);
-
-    toast.success(`Booking request sent for "${camperName}" ✅`);
-
-    setValues({ name: "", email: "", date: "", comment: "" });
-    setTouched({});
-  } catch (error) {
-    console.error(error);
-    toast.error(
-      error?.response?.data?.message ||
-      error?.message ||
-      "Щось пішло не так. Спробуй ще раз."
-    );
-  } finally {
-    setSent(false);
-  }
-  }
-  
   return (
     <div className={s.box}>
       <h3 className={s.title}>Book your campervan now</h3>
@@ -72,10 +78,13 @@ function BookingForm({ camperName }) {
           <input
             className={cn(s.input, touched.name && errors.name && s.invalid)}
             name="name"
+            type="text"
             placeholder="Name*"
             value={values.name}
             onChange={onChange}
             onBlur={onBlur}
+            aria-invalid={!!(touched.name && errors.name)}
+            autoComplete="name"
           />
           {touched.name && errors.name && <span className={s.err}>{errors.name}</span>}
         </div>
@@ -89,6 +98,8 @@ function BookingForm({ camperName }) {
             value={values.email}
             onChange={onChange}
             onBlur={onBlur}
+            aria-invalid={!!(touched.email && errors.email)}
+            autoComplete="email"
           />
           {touched.email && errors.email && <span className={s.err}>{errors.email}</span>}
         </div>
@@ -99,10 +110,10 @@ function BookingForm({ camperName }) {
             name="date"
             type="date"
             min={minDate}
-            placeholder="Booking date*"
             value={values.date}
             onChange={onChange}
             onBlur={onBlur}
+            aria-invalid={!!(touched.date && errors.date)}
           />
           {touched.date && errors.date && <span className={s.err}>{errors.date}</span>}
         </div>
@@ -119,8 +130,15 @@ function BookingForm({ camperName }) {
           />
         </div>
 
-        <button type="submit" className={s.primary} disabled={sent}>{sent ? "Sending..." : "Send"}</button>
-        {sent && <div className={s.success}>We received your request. We'll contact you soon.</div>}
+        <button type="submit" className={s.primary} disabled={isSending}>
+          {isSending ? "Sending..." : "Send"}
+        </button>
+
+        {wasSent && (
+          <div className={s.success} aria-live="polite">
+            We received your request. We'll contact you soon.
+          </div>
+        )}
       </form>
     </div>
   );

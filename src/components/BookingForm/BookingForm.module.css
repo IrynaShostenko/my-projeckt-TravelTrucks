@@ -1,24 +1,24 @@
 .box {
     background: #fff;
     border: 1px solid #E0E3E7;
-    border-radius: 16px;
-    padding: 16px;
+    border-radius: 10px;
+    padding: 44px;
 }
 
 .title {
-    margin: 0 0 6px;
+    margin: 0 0 8px;
     font-weight: 700;
     color: #101828;
 }
 
 .sub {
-    margin: 0 0 12px;
+    margin: 0 0 16px;
     color: #667085;
 }
 
 .form {
     display: grid;
-    gap: 10px;
+    gap: 14px;
 }
 
 .field {
@@ -27,20 +27,22 @@
 }
 
 .input {
-    height: 44px;
+    height: 56px;
     border-radius: 12px;
     border: 1px solid #E0E3E7;
     background: #F7F7F7;
-    padding: 0 12px;
+    padding: 0 16px;
+    font-size: 16px;
 }
 
 .textarea {
-    min-height: 110px;
+    min-height: 120px;
     border-radius: 12px;
     border: 1px solid #E0E3E7;
     background: #F7F7F7;
-    padding: 10px 12px;
+    padding: 12px 16px;
     resize: vertical;
+    font-size: 16px;
 }
 
 .invalid {
@@ -54,17 +56,93 @@
 }
 
 .primary {
+    grid-column: 1 / -1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    height: 56px;
+    padding: 0 24px;
+
     background: #E44848;
     color: #fff;
     border: none;
     border-radius: 28px;
-    padding: 12px 20px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    transition: background .15s ease, transform .02s ease;
+}
+
+.primary:hover {
+    background: #DB3434;
+}
+
+.primary:active {
+    transform: translateY(1px);
+}
+
+.primary:focus-visible {
+    outline: 2px solid #e44848;
+    outline-offset: 3px;
+}
+
+.primary:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 .success {
-    margin-top: 8px;
+    margin-top: 12px;
     color: #067647;
+    background: #ECFDF3;
+    border: 1px solid #A6F4C5;
+    border-radius: 12px;
+    padding: 10px 12px;
     font-size: 14px;
+    font-weight: 600;
+}
+
+.actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    /* центр кнопки */
+    width: 100%;
+}
+
+.primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    height: 56px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 28px;
+    background: #E44848;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s ease, transform .02s ease;
+    width: 100%;
+    max-width: 166px;
+}
+
+.primary:hover {
+    background: #DB3434;
+}
+
+.primary:active {
+    transform: translateY(1px);
+}
+
+.primary:focus-visible {
+    outline: 2px solid #e44848;
+    outline-offset: 3px;
+}
+
+.primary:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }

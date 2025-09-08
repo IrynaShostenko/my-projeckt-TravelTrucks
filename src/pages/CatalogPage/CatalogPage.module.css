@@ -31,9 +31,9 @@
     margin: 24px 0 40px;
     padding: 12px 20px;
     background: #fff;
-    color: #E44848;
-    border: 1px solid #E44848;
-    border-radius: 28px;
+    color: #101828;
+    border-radius: 200px;
+    border: 1px solid var(--Gray-light, #DADDE1);
     cursor: pointer;
     font-weight: 600;
 }
@@ -45,4 +45,18 @@
 .empty {
     margin-top: 8px;
     color: #475467;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    /* щоб діти не тягнулись на всю ширину */
+}
+
+/* (як робили раніше) */
+.wrap>aside,
+.wrap>section {
+    min-width: 0;
 }

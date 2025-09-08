@@ -41,13 +41,15 @@ function CamperCard({ camper }) {
 
   return (
     <article className={s.card}>
-      <img
-        className={s.photo}
-        src={cover || FALLBACK_IMG}
-        onError={onImgError}
-        alt={camper.name}
-        loading="lazy"
-      />
+  <div className={s.thumb}>
+    <img
+      className={s.photo}
+      src={cover || FALLBACK_IMG}
+      onError={onImgError}
+      alt={camper.name}
+      loading="lazy"
+    />
+  </div>
 
       <div className={s.body}>
         <div className={s.head}>

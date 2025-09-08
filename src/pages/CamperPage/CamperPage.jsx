@@ -22,7 +22,6 @@ import {
 import formatPrice from "../../utils/formatPrice.js";
 import s from "./CamperPage.module.css";
 
-// Приводимо дані галереї до масиву URL рядків
 function normalizeGallery(camper) {
   if (!camper) return [];
   if (Array.isArray(camper.gallery)) {
@@ -47,13 +46,12 @@ export default function CamperPage() {
     return () => dispatch(clearCurrent());
   }, [dispatch, id]);
 
-  // Рівно 4 слоти у галереї; якщо фото немає — null (біла картка)
   const gallerySlots = useMemo(() => {
     const imgs = normalizeGallery(camper);
     return Array.from({ length: 4 }, (_, i) => imgs[i] || null);
   }, [camper]);
 
-  // Якщо конкретне фото зламалось — ховаємо <img>, залишається біла плашка
+
   const onImgError = (e) => {
     e.currentTarget.style.display = "none";
   };
@@ -67,13 +65,8 @@ export default function CamperPage() {
 
         {!loading && !error && camper && (
           <>
-            {/* Заголовок + ціна */}
             <div className={s.head}>
               <h1 className={s.title}>{camper.name}</h1>
-              <div className={s.price}>€{formatPrice(camper.price)}</div>
-            </div>
-
-            {/* Рейтинг, відгуки та локація (без крапки) */}
             <div className={s.meta}>
               <a className={s.reviewsLink} href="#reviews">
                 <StarIcon filled size={16} />
@@ -90,8 +83,10 @@ export default function CamperPage() {
                 {camper.location}
               </span>
             </div>
+              <div className={s.price}>€{formatPrice(camper.price)}</div>
+            </div>
 
-            {/* Галерея з 4 однаковими слотами; порожні — просто білі */}
+
             <div className={s.gallery}>
               {gallerySlots.map((src, i) => (
                 <div className={`${s.gItem} ${!src ? s.gEmpty : ""}`} key={i}>
@@ -112,7 +107,6 @@ export default function CamperPage() {
               <p className={s.desc}>{camper.description}</p>
             )}
 
-            {/* Таби: Features / Reviews */}
             <Tabs
               defaultKey="Features"
               tabs={{

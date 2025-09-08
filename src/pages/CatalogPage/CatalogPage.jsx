@@ -17,7 +17,7 @@ function CatalogPage() {
   const hasMore = useSelector(selectHasMore);
 
   useEffect(() => {
-    dispatch(loadCampers()); // дефолт — без фільтрів
+    dispatch(loadCampers());
   }, [dispatch]);
 
   function handleApplyFilters(filters) {
